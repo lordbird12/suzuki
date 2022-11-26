@@ -1,0 +1,154 @@
+<div class="flex flex-col flex-auto min-w-0 bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    สร้างคลาส
+                </h2>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-3 sm:p-10">
+        <form class="flex flex-col p-8 pb-4 bg-card shadow overflow-hidden ng-valid" [formGroup]="formData">
+            <div class="flex flex-col sm:flex-row p-8">
+
+                <!-- Product images and status -->
+                <div class="flex flex-col items-center sm:items-start mb-8 sm:mb-0">
+                    <div class="flex flex-col items-center">
+                        <h2>คลาส</h2>
+                    </div>
+
+                </div>
+
+                <div class="flex flex-auto flex-wrap">
+
+                    <!-- Name, SKU & etc. -->
+                    <div class="flex flex-col w-full lg:w-4/4 sm:pl-8">
+                        <!--firstname and lastname-->
+                        <div class="flex">
+                            <mat-form-field class="w-full">
+                                <mat-label>ชื่อคลาส
+                                </mat-label>
+                                <input matInput [formControlName]="'name'">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                        <!--firstname and lastname-->
+                        <div class="flex">
+                            <mat-form-field class="w-full">
+                                <mat-label>ประเภทคลาส
+                                </mat-label>
+                                <mat-select [formControlName]="'classTypeId'">
+                                    <mat-option [value]="''">
+                                        <span>เลือกประเภทคลาส</span>
+                                    </mat-option>
+                                    <mat-option *ngFor="let item of ClassTypeData" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                        <mat-form-field class="w-full">
+                            <mat-label>ระยะเวลา
+                            </mat-label>
+                            <input matInput [formControlName]="'preriod'">
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                        <mat-form-field class="w-full">
+                            <mat-label>จำนวนวัน</mat-label>
+                            <input matInput [formControlName]="'preriodDate'">
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                        <mat-form-field class="w-full">
+                            <mat-label>วันที่</mat-label>
+                            <input matInput [formControlName]="'date'">
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                        <mat-form-field class="w-full">
+                            <mat-label>ราคา
+                            </mat-label>
+                            <input matInput [formControlName]="'price'">
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                        <mat-form-field class="w-full">
+                            <mat-label>ส่วนลด</mat-label>
+                            <input matInput [formControlName]="'discount'">
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                        <mat-form-field class="w-full">
+                            <mat-label>ราคา-ส่วนลด</mat-label>
+                            <input matInput [formControlName]="'total'">
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                        <mat-form-field class="w-full">
+                            <mat-label>จำนวนรอบที่ลงได้
+                            </mat-label>
+                            <input matInput [formControlName]="'qtyRound'">
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                        <mat-form-field class="w-full">
+                            <mat-label class="font-bold">รายละเอียด</mat-label>
+                            <textarea matInput rows="4" [formControlName]="'detail'" placeholder="กรุณาระบุรายละเอียด"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                        <div class="border-t border-gray-200">
+                            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                                <div class=" flex flex-wrap justify-start">
+                                    <ngx-dropzone style="width: 100%; height: 120px; justify-content: center;" (change)="onSelect($event)">
+                                        <ngx-dropzone-label>รูปคลาส</ngx-dropzone-label>
+                                        <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" [file]="f" (removed)="onRemove(f)">
+                                        </ngx-dropzone-image-preview>
+                                    </ngx-dropzone>
+                                </div>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                        <div class="border-t border-gray-200">
+                            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                                <div class=" flex flex-wrap justify-start">
+                                    <ngx-dropzone style="width: 100%; height: 120px; justify-content: center;" (change)="onSelect2($event)">
+                                        <ngx-dropzone-label>รูปรายละเอียด</ngx-dropzone-label>
+                                        <ngx-dropzone-image-preview *ngFor="let f of files2" [removable]="true" [file]="f" (removed)="onRemove2(f)">
+                                        </ngx-dropzone-image-preview>
+                                    </ngx-dropzone>
+                                </div>
+                            </dd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="flex items-center justify-end w-full border-t px-8 py-4">
+            <div class="flex items-center justify-end">
+                <a class="ml-4" mat-flat-button href="class/list">
+                    <mat-icon svgIcon="heroicons_solid:x"></mat-icon>
+                    ยกเลิก
+                </a>
+                <button class="px-6 ml-3 mat-primary" mat-flat-button (click)="create()">
+                    <mat-icon svgIcon="heroicons_solid:check"></mat-icon>
+                    ยืนยัน
+                </button>
+            </div>
+        </div>
+        <pre>
+        </pre>
+    </div>
+</div>
