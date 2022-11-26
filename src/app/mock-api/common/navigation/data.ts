@@ -17,12 +17,21 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 link: '/member/list',
             },
            
+            // {
+            //     title: 'รายการเติมเงิน',
+            //     type: 'basic',
+            //     icon: 'heroicons_outline:cash',
+            //     link: 'transaction/list'
+            // },
+
             {
-                title: 'รายการเติมเงิน',
+                title: 'รถจักรยานยนต์',
                 type: 'basic',
-                icon: 'heroicons_outline:cash',
-                link: 'transaction/list'
+                icon: 'mat_solid:sports_motorsports',
+                link: 'motorcycle/list'
             },
+
+
         ],
     },
 

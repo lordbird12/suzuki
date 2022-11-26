@@ -159,6 +159,21 @@ export const appRoutes: Route[] = [
                 ],
             },
 
+
+            {
+                path: 'motorcycle',
+                canActivate: [],
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/administrator/motorcycle/page.module'
+                            ).then((m) => m.Module),
+                    },
+                ],
+            },          
+
             // 404 & Catch all
             {
                 path: '404-not-found',
