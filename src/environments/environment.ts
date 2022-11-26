@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    API_URL: 'https://huawei-pos-gateway.ddns.net/api/public/',
+    API_URL: 'https://asha-dev.com/suzuki-api/public/',
 };
 
 /*

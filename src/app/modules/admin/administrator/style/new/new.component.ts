@@ -47,6 +47,7 @@ import { Service } from '../page.service';
 export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(MatPaginator) private _paginator: MatPaginator;
     @ViewChild(MatSort) private _sort: MatSort;
+    files: File[] = [];
 
     formData: FormGroup;
     flashErrorMessage: string;
@@ -61,24 +62,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     supplierId: string | null;
     pagination: BranchPagination;
     public UserAppove: any = [];
-    // toppings: any = [
-    //     { id: 1, name: 'พระธรรมกาย' },
-    //     { id: 2, name: 'พระวิริยะ' },
-    //     { id: 3, name: 'พระมโนธรรม' },
-    // ];
-    bankData: any = [
-        { id: 1, name: 'KBANK' },
-        { id: 2, name: 'KTB' },
-        { id: 3, name: 'GSB' },
-        { id: 4, name: 'SCB' },
-        { id: 5, name: 'BBL' },
-        { id: 6, name: 'BAY' },
-        { id: 7, name: 'CITI' },
-        { id: 8, name: 'NBANK' },
-        { id: 9, name: 'GHB' },
-        { id: 10, name: 'SCIB' },
-        { id: 11, name: 'TMB' },
-    ];
+
 
     toppings: any = [];
     /**
@@ -96,10 +80,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     ) {
         this.formData = this._formBuilder.group({
             name: ['', Validators.required],
-            number: ['', Validators.required],
-            bank_of: '',
-            description: '',
-            approve: this._formBuilder.array([]),
+            image: '',
         });
     }
 
@@ -113,10 +94,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnInit(): void {
         this.formData = this._formBuilder.group({
             name: ['', Validators.required],
-            number: ['', Validators.required],
-            bank_of: '',
-            description: '',
-            approve: this._formBuilder.array([]),
+            image: '',
         });
 
         this._changeDetectorRef.markForCheck();
@@ -155,7 +133,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         // Unsubscribe from all subscriptions
     }
 
-    NewBank(): void {
+    New(): void {
         this.flashMessage = null;
         this.flashErrorMessage = null;
         // Return if the form is invalid
@@ -164,8 +142,8 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         // }
         // Open the confirmation dialog
         const confirmation = this._fuseConfirmationService.open({
-            title: 'เพิ่มบัญชีธนาคารใหม่',
-            message: 'คุณต้องการเพิ่มบัญชีธนาคารใหม่ใช่หรือไม่ ',
+            title: 'เพิ่มสไตล์ใหม่',
+            message: 'คุณต้องการเพิ่มสไตล์ใหม่ใช่หรือไม่ ',
             icon: {
                 show: false,
                 name: 'heroicons_outline:exclamation',
@@ -189,10 +167,15 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         confirmation.afterClosed().subscribe((result) => {
             // If the confirm button pressed...
             if (result === 'confirmed') {
-                // console.log(this.formData.value);
-                this._Service.newBank(this.formData.value).subscribe({
+                const formData = new FormData();
+                Object.entries(this.formData.value).forEach(
+                    ([key, value]: any[]) => {
+                        formData.append(key, value);
+                    }
+                );
+                this._Service.new(formData).subscribe({
                     next: (resp: any) => {
-                        this._router.navigateByUrl('bank/list').then(() => {});
+                        this._router.navigateByUrl('style/list').then(() => {});
                     },
                     error: (err: any) => {
                         this._fuseConfirmationService.open({
@@ -251,4 +234,29 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
             this.removeUser(i);
         }
     }
+
+
+
+    onSelect(event) {
+        console.log(event);
+        this.files.push(...event.addedFiles);
+        // Trigger Image Preview
+        setTimeout(() => {
+            this._changeDetectorRef.detectChanges()
+        }, 150)
+        this.formData.patchValue({
+            image: this.files[0],
+        });
+        console.log(this.formData.value)
+    }
+
+    onRemove(event) {
+        console.log('1', event);
+        this.files.splice(this.files.indexOf(event), 1);
+        this.formData.patchValue({
+            image: '',
+        });
+        console.log(this.formData.value)
+    }
+
 }

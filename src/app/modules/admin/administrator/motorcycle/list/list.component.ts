@@ -117,7 +117,6 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
                 url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/th.json',
             },
             ajax: (dataTablesParameters: any, callback) => {
-                dataTablesParameters.status = 'Yes';
                 that._Service
                     .getPage(dataTablesParameters)
                     .subscribe((resp) => {
@@ -141,13 +140,13 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
                     });
             },
             columns: [
-                { data: 'id' },
-                { data: 'member_id' },
-                { data: 'fname' },
-                { data: 'wallet' },
-                { data: 'status' },
+                { data: 'no' }, 
+                { data: 'style' },
+                { data: 'name' },
+                { data: 'image' },
                 { data: 'created_at' },
-                { data: 'actice', orderable: false },
+                { data: 'delete' },
+                { data: 'update' },                             
             ],
         };
     }
@@ -225,9 +224,13 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
         }, 3000);
     }
 
-    edit(bankId: string): void {
-        console.log(bankId);
-        this._router.navigate(['member/edit/' + bankId]);
+    edit(Id: string): void {
+
+        this._router.navigate(['motorcycle/edit/' + Id]);
+    }
+
+    new(): void {
+        this._router.navigate(['motorcycle/new']);
     }
 
     textStatus(status: string): string {

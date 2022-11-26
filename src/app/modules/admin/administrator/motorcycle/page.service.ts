@@ -31,7 +31,9 @@ export class Service {
   private _product: BehaviorSubject<BranchProduct | null> = new BehaviorSubject(null);
   private _products: BehaviorSubject<BranchProduct[] | null> = new BehaviorSubject(null);
   private _list_data: BehaviorSubject<any[] | null> = new BehaviorSubject(null);
-
+  private _materials: BehaviorSubject<any[] | null> = new BehaviorSubject(
+    null
+);
   /**
    * Constructor
    */
@@ -101,12 +103,12 @@ Z
 
 
   ///create branch////
-  newBank(bank: any): Observable<any> {
+  new(data: any): Observable<any> {
     // Throw error, if the user is already logged in
     //  if (this._authenticated) {
     //     return throwError('User is already logged in.');
     // }
-    return this._httpClient.post(environment.API_URL + 'api/bank', bank, this.httpOptionsFormdata).pipe(
+    return this._httpClient.post(environment.API_URL + 'api/motor', data, this.httpOptionsFormdata).pipe(
       switchMap((response: any) => {
         // Return a new observable with the response
         return of(response);
@@ -157,14 +159,22 @@ Z
   }
 
   getPage(dataTablesParameters: any): Observable<DataTablesResponse> {
-    return this._httpClient.post(environment.API_URL + 'api/member_page', dataTablesParameters, this.httpOptionsFormdata).pipe(
+    return this._httpClient.post(environment.API_URL + 'api/motor_page', dataTablesParameters, this.httpOptionsFormdata).pipe(
       switchMap((response: any) => {
         return of(response.data);
       })
     );
   }
 
-
+  getStyle(): Observable<any[]> {
+    return this._httpClient
+        .get<any[]>(environment.API_URL + 'api/get_style')
+        .pipe(
+            tap((meterial) => {
+                this._materials.next(meterial);
+            })
+        );
+}
 
   uploadImg(img: FormData): Observable<any> {
     return this._httpClient.post(environment.API_URL + 'api/upload_images', img, this.httpOptionsFormdata).pipe(

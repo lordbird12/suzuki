@@ -52,6 +52,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
     itemData: any = [];
     // branchId = 2;
     Id: any;
+    files: File[] = [];
 
     formData: FormGroup;
     flashErrorMessage: string;
@@ -155,6 +156,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
     }
+    
 
     updateBank(): void {
         this.flashMessage = null;
@@ -249,6 +251,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         });
     }
+    
 
     showFlashMessage(type: 'success' | 'error'): void {
         // Show the message
@@ -266,6 +269,19 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
         }, 3000);
     }
 
+    onSelect(event) {
+        console.log(event);
+        this.files.push(...event.addedFiles);
+        // Trigger Image Preview
+        setTimeout(() => {
+            this._changeDetectorRef.detectChanges()
+        }, 150)
+        this.formData.patchValue({
+            image: this.files[0],
+        });
+        console.log(this.formData.value)
+    }
+
     CheckUserAppove(event): void {
         console.log(event);
         let formValue = this.formData.value.user_id;
@@ -274,6 +290,8 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
             this.formData.patchValue({
                 user_id: this.UserAppove,
             });
+
+            
 
             // this.dataForm.get('componentData')['controls'][i].get('componentForm')['controls'][j].patchValue(formValue[j])
         } else {

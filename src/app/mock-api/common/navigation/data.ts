@@ -11,19 +11,12 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:home',
         children: [
             {
-                title: 'รายชื่อ',
+                title: 'สมาชิก',
                 type: 'basic',
                 icon: 'heroicons_outline:users',
                 link: '/member/list',
             },
-           
-            // {
-            //     title: 'รายการเติมเงิน',
-            //     type: 'basic',
-            //     icon: 'heroicons_outline:cash',
-            //     link: 'transaction/list'
-            // },
-
+            
             {
                 title: 'สไตล์',
                 type: 'basic',

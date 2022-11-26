@@ -52,6 +52,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
     itemData: any = [];
     // branchId = 2;
     Id: any;
+    files: File[] = [];
 
     formData: FormGroup;
     flashErrorMessage: string;
@@ -86,13 +87,9 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
         private _authService: AuthService
     ) {
         this.formData = this._formBuilder.group({
-            member_id: ['', Validators.required],
-            code: ['', Validators.required],
-            fname: '',
-            lname: '',
-            email: '',
-            status: '',
-            transections: this._formBuilder.array([]),
+            id: '',       
+            name: ['', Validators.required],
+            image: ''
         });
     }
 
@@ -110,13 +107,10 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
             this.itemData = resp.data;
             console.log(this.itemData);
             this.formData.patchValue({
-                member_id: this.itemData.member_id,
-                code: this.itemData.code,
-                fname: this.itemData.fname,
-                lname: this.itemData.lname,
-                email: this.itemData.email,
-                transections: this.itemData.transections,
-                status: '',
+                id: this.itemData.id,
+                name: this.itemData.name,
+                image: this.itemData.image,
+
             });
         });
     }
@@ -155,18 +149,13 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
     }
-
-    updateBank(): void {
+    Edit(): void {
         this.flashMessage = null;
         this.flashErrorMessage = null;
-        // Return if the form is invalid
-        // if (this.formData.invalid) {
-        //     return;
-        // }
-        // Open the confirmation dialog
+
         const confirmation = this._fuseConfirmationService.open({
-            title: 'แก้ไขบัญชีธนาคาร',
-            message: 'คุณต้องการแก้ไขบัญชีธนาคารใช่หรือไม่ ',
+            title: 'แก้ไขสไตล์',
+            message: 'คุณต้องการแก้ไขสไตล์ใช่หรือไม่ ',
             icon: {
                 show: false,
                 name: 'heroicons_outline:exclamation',
@@ -190,19 +179,21 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
         confirmation.afterClosed().subscribe((result) => {
             // If the confirm button pressed...
             if (result === 'confirmed') {
-                console.log(this.formData.value);
-                // Disable the form
-                this.formData.disable();
-                this._Service.update(this.formData.value, this.Id).subscribe({
+                const formData = new FormData();
+                Object.entries(this.formData.value).forEach(
+                    ([key, value]: any[]) => {
+                        formData.append(key, value);
+                    }
+                );
+                this._Service.update(formData).subscribe({
                     next: (resp: any) => {
-                        this.showFlashMessage('success');
-                        this._router.navigateByUrl('bank/list').then(() => {});
+                        this._router.navigateByUrl('style/list').then(() => {});
                     },
                     error: (err: any) => {
-                        this.formData.enable();
                         this._fuseConfirmationService.open({
                             title: 'กรุณาระบุข้อมูล',
-                            message: err.error.message,
+                            message:
+                                'ไม่สามารถบันทึกข้อมูลได้กรุณาตรวจสอบใหม่อีกครั้ง',
                             icon: {
                                 show: true,
                                 name: 'heroicons_outline:exclamation',
@@ -221,34 +212,12 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
                             },
                             dismissible: true,
                         });
-                        console.log(err.error.message);
                     },
                 });
-
-                // Sign in
-                // this._Service.createUser(this.userForm.value)
-                //     .subscribe({
-                //         next: (res) => {
-                //             console.log(res);
-                //         },
-                //         error: (err: HttpErrorResponse) => {
-                //             this.userForm.enable();
-                //             this.flashMessage = 'error';
-
-                //             if (err.error.error['message'] === 'This attribute must be unique') {
-                //                 this.flashErrorMessage = 'Username is already';
-                //             } else {
-                //                 this.flashErrorMessage = err.error.error['message'];
-                //             }
-                //         },
-                //         complete: () => {
-                //             this._location.back();
-                //         },
-                //     }
-                //     );
             }
         });
     }
+
 
     showFlashMessage(type: 'success' | 'error'): void {
         // Show the message
@@ -266,6 +235,19 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
         }, 3000);
     }
 
+    onSelect(event) {
+        console.log(event);
+        this.files.push(...event.addedFiles);
+        // Trigger Image Preview
+        setTimeout(() => {
+            this._changeDetectorRef.detectChanges()
+        }, 150)
+        this.formData.patchValue({
+            image: this.files[0],
+        });
+        console.log(this.formData.value)
+    }
+
     CheckUserAppove(event): void {
         console.log(event);
         let formValue = this.formData.value.user_id;
@@ -274,6 +256,8 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
             this.formData.patchValue({
                 user_id: this.UserAppove,
             });
+
+            
 
             // this.dataForm.get('componentData')['controls'][i].get('componentForm')['controls'][j].patchValue(formValue[j])
         } else {
