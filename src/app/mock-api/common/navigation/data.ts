@@ -11,7 +11,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:home',
         children: [
             {
-                title: 'รายชื่อสมาชิก',
+                title: 'รายชื่อ',
                 type: 'basic',
                 icon: 'heroicons_outline:users',
                 link: '/member/list',
