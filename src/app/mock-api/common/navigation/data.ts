@@ -16,14 +16,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'heroicons_outline:users',
                 link: '/member/list',
             },
-            
+
             {
                 title: 'สไตล์',
                 type: 'basic',
                 icon: 'heroicons_outline:collection',
                 link: 'style/list'
             },
-           
+
 
             {
                 title: 'รถจักรยานยนต์',
@@ -31,6 +31,8 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'mat_solid:sports_motorsports',
                 link: 'motorcycle/list'
             },
+
+
 
 
 
