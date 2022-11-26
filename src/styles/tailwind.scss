@@ -6,14 +6,14 @@
 
 @tailwind utilities;
 .mat-flat-button {
-    border: 1px solid #6B081D !important;
-    color: #6B081D !important;
+    border: 1px solid #ed1f24 !important;
+    color: #ed1f24 !important;
     border-radius: 0px !important;
 }
 
 .mat-flat-button.mat-primary {
-    border: 1px solid #6B081D !important;
-    background-color: #6B081D !important;
+    border: 1px solid #ed1f24 !important;
+    background-color: #ed1f24 !important;
     border-radius: 0px !important;
     span.mat-button-wrapper {
         color: white !important;
@@ -43,7 +43,7 @@
         color: white;
     }
     &:not([disabled]) {
-        background: #6B081D !important;
+        background: #ed1f24 !important;
         color: white !important;
     }
 }
@@ -52,7 +52,7 @@
     // color: theming.get-color-from-palette($foreground, text);
     &:hover:not(.mat-option-disabled),
     &:focus:not(.mat-option-disabled) {
-        background: #6B081D !important;
+        background: #ed1f24 !important;
         color: white;
     }
     // In multiple mode there is a checkbox to show that the option is selected.
@@ -60,7 +60,7 @@
     //   background: theming.get-color-from-palette($background, hover);
     // }
     &.mat-active {
-        background: #6B081D !important;
+        background: #ed1f24 !important;
         color: white !important;
     }
     // &.mat-option-disabled {

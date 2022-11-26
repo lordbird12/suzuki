@@ -11,6 +11,9 @@ export interface AssetCategory {
     }
 }
 
+
+
+
 export interface AssetType {
     id: string,
     attributes: {

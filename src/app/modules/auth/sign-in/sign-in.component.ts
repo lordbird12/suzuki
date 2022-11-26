@@ -12,40 +12,42 @@ import { AuthService } from 'app/core/auth/auth.service';
     styles: [
         /* language=SCSS */
         `
+
             @screen md {
                 .max-w-6xl {
                     width: 50% !important;
-                }
+                 }
 
-                .light {
-                    background: #2a2e45 !important;
+                 .light{
+                    background:#2A2E45 !important;
                 }
             }
 
             @screen lg {
                 .max-w-6xl {
                     width: 50% !important;
-                }
+                 }
 
-                .light {
-                    background: #2a2e45 !important;
+                 .light{
+                    background:#2A2E45 !important;
                 }
             }
 
             .fuse-mat-button-large {
                 border-radius: 5px !important;
             }
-        `,
+        `
+
     ],
     encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations,
+    animations: fuseAnimations
 })
 export class AuthSignInComponent implements OnInit {
     @ViewChild('signInNgForm') signInNgForm: NgForm;
 
     alert: { type: FuseAlertType; message: string } = {
         type: 'success',
-        message: '',
+        message: ''
     };
     signInForm: FormGroup;
     showAlert: boolean = false;
@@ -58,7 +60,8 @@ export class AuthSignInComponent implements OnInit {
         private _authService: AuthService,
         private _formBuilder: FormBuilder,
         private _router: Router
-    ) {}
+    ) {
+    }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
@@ -71,8 +74,9 @@ export class AuthSignInComponent implements OnInit {
         // Create the form
         this.signInForm = this._formBuilder.group({
             // identifier: ['', Validators.required],
-            username: ['cocoi0123', Validators.required],
-            password: ['1234@Abc', Validators.required],
+            user_id: ['', Validators.required],
+            password: ['', Validators.required],
+            rememberMe: ['']
         });
     }
 
@@ -96,40 +100,42 @@ export class AuthSignInComponent implements OnInit {
         this.showAlert = false;
 
         // Sign in
-        this._authService.signIn(this.signInForm.value).subscribe({
-            complete: () => {
-                // console.log('1')
-                // let redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+        this._authService.signIn(this.signInForm.value)
+            .subscribe({
+                complete: () => {
+                    // console.log('1')
+                    let redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
 
-                // if (redirectURL === '/signed-in-redirect') {
-                let redirectURL = 'home/list';
-                // }
-                this._router.navigateByUrl(redirectURL);
-            },
-            error: (error: HttpErrorResponse) => {
-                // console.log('2')
+                    if (redirectURL === '/signed-in-redirect') {
+                        redirectURL = 'member/list';
+                    }
+                    this._router.navigateByUrl(redirectURL);
+                },
+                error: (error: HttpErrorResponse) => {
 
-                this.signInForm.enable();
-                this.signInNgForm.resetForm();
+                    // console.log('2')
 
-                let errorMsg = '';
+                    this.signInForm.enable();
+                    this.signInNgForm.resetForm();
 
-                switch (error.error['error']['message']) {
-                    case 'Invalid identifier or password':
-                        errorMsg = 'Invalid username or password';
-                        break;
+                    let errorMsg = '';
 
-                    default:
-                        errorMsg = error.error['error']['message'];
-                        break;
+                    switch (error.error['error']['message']) {
+                        case 'Invalid identifier or password':
+                            errorMsg = 'Invalid username or password';
+                            break;
+
+                        default:
+                            errorMsg = error.error['error']['message'];
+                            break;
+                    }
+
+                    this.alert = {
+                        type: 'error',
+                        message: errorMsg,
+                    };
+                    this.showAlert = true;
                 }
-
-                this.alert = {
-                    type: 'error',
-                    message: errorMsg,
-                };
-                this.showAlert = true;
-            },
-        });
+            });
     }
 }

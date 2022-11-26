@@ -8,7 +8,6 @@ import { InitialDataResolver } from 'app/app.resolvers';
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
-
     // Redirect empty path to '/dashboards/project'
     { path: '', pathMatch: 'full', redirectTo: 'landing' },
 
@@ -26,15 +25,45 @@ export const appRoutes: Route[] = [
         canActivateChild: [NoAuthGuard],
         component: LayoutComponent,
         data: {
-            layout: 'empty'
+            layout: 'empty',
         },
         children: [
-            { path: 'confirmation-required', loadChildren: () => import('app/modules/auth/confirmation-required/confirmation-required.module').then(m => m.AuthConfirmationRequiredModule) },
-            { path: 'forgot-password', loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.module').then(m => m.AuthForgotPasswordModule) },
-            { path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.module').then(m => m.AuthResetPasswordModule) },
-            { path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule) },
-            { path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.module').then(m => m.AuthSignUpModule) }
-        ]
+            {
+                path: 'confirmation-required',
+                loadChildren: () =>
+                    import(
+                        'app/modules/auth/confirmation-required/confirmation-required.module'
+                    ).then((m) => m.AuthConfirmationRequiredModule),
+            },
+            {
+                path: 'forgot-password',
+                loadChildren: () =>
+                    import(
+                        'app/modules/auth/forgot-password/forgot-password.module'
+                    ).then((m) => m.AuthForgotPasswordModule),
+            },
+            {
+                path: 'reset-password',
+                loadChildren: () =>
+                    import(
+                        'app/modules/auth/reset-password/reset-password.module'
+                    ).then((m) => m.AuthResetPasswordModule),
+            },
+            {
+                path: 'sign-in',
+                loadChildren: () =>
+                    import('app/modules/auth/sign-in/sign-in.module').then(
+                        (m) => m.AuthSignInModule
+                    ),
+            },
+            {
+                path: 'sign-up',
+                loadChildren: () =>
+                    import('app/modules/auth/sign-up/sign-up.module').then(
+                        (m) => m.AuthSignUpModule
+                    ),
+            },
+        ],
     },
     // Auth routes for authenticated users
     {
@@ -43,12 +72,24 @@ export const appRoutes: Route[] = [
         canActivateChild: [AuthGuard],
         component: LayoutComponent,
         data: {
-            layout: 'empty'
+            layout: 'empty',
         },
         children: [
-            { path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.module').then(m => m.AuthSignOutModule) },
-            { path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.module').then(m => m.AuthUnlockSessionModule) }
-        ]
+            {
+                path: 'sign-out',
+                loadChildren: () =>
+                    import('app/modules/auth/sign-out/sign-out.module').then(
+                        (m) => m.AuthSignOutModule
+                    ),
+            },
+            {
+                path: 'unlock-session',
+                loadChildren: () =>
+                    import(
+                        'app/modules/auth/unlock-session/unlock-session.module'
+                    ).then((m) => m.AuthUnlockSessionModule),
+            },
+        ],
     },
 
     // Admin routes
@@ -62,83 +103,72 @@ export const appRoutes: Route[] = [
         },
         children: [
             {
-                path: 'landing', loadChildren: () => import('./modules/landing/landing.module').then(m => m.LandingModule)
+                path: 'landing',
+                loadChildren: () =>
+                    import('./modules/landing/landing.module').then(
+                        (m) => m.LandingModule
+                    ),
             },
             {
-                path: 'home', loadChildren: () => import('./modules/admin/pages/home/home.module').then(m => m.HomeModule)
+                path: 'home',
+                loadChildren: () =>
+                    import('./modules/admin/pages/home/home.module').then(
+                        (m) => m.HomeModule
+                    ),
             },
-           
+            //user
+            {
+                path: 'user',
+                canActivate: [],
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/administrator/user/user.module'
+                            ).then((m) => m.UserModule),
+                    },
+                ],
+            },
             //user
             {
                 path: 'member',
-                canActivate: [], children: [
-                    { path: '', loadChildren: () => import('app/modules/admin/g-admin/member/member.module').then(m => m.Module) },
-                ]
+                canActivate: [],
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/administrator/members/page.module'
+                            ).then((m) => m.Module),
+                    },
+                ],
             },
-            {
-                path: 'class-type',
-                canActivate: [], children: [
-                    { path: '', loadChildren: () => import('app/modules/admin/g-admin/class-type/class-type.module').then(m => m.Module) },
-                ]
-            },
-            {
-                path: 'class',
-                canActivate: [], children: [
-                    { path: '', loadChildren: () => import('app/modules/admin/g-admin/class/class.module').then(m => m.Module) },
-                ]
-            },
-            {
-                path: 'quest-type',
-                canActivate: [], children: [
-                    { path: '', loadChildren: () => import('app/modules/admin/g-admin/quest-type/quest-type.module').then(m => m.Module) },
-                ]
-            },
-            {
-                path: 'quest-sub-type',
-                canActivate: [], children: [
-                    { path: '', loadChildren: () => import('app/modules/admin/g-admin/quest-sub-type/quest-sub-type.module').then(m => m.Module) },
-                ]
-            },
-            {
-                path: 'quest-group',
-                canActivate: [], children: [
-                    { path: '', loadChildren: () => import('app/modules/admin/g-admin/quest-group/quest-group.module').then(m => m.Module) },
-                ]
-            },
-            {
-                path: 'quest',
-                canActivate: [], children: [
-                    { path: '', loadChildren: () => import('app/modules/admin/g-admin/quest/quest.module').then(m => m.Module) },
-                ]
-            },
-            {
-                path: 'round',
-                canActivate: [], children: [
-                    { path: '', loadChildren: () => import('app/modules/admin/g-admin/round/round.module').then(m => m.Module) },
-                ]
-            },
-            {
-                path: 'round-time',
-                canActivate: [], children: [
-                    { path: '', loadChildren: () => import('app/modules/admin/g-admin/round-time/round-time.module').then(m => m.Module) },
-                ]
-            },
-            {
-                path: 'item',
-                canActivate: [], children: [
-                    { path: '', loadChildren: () => import('app/modules/admin/g-admin/item/item.module').then(m => m.Module) },
-                ]
-            },
-            {
-                path: 'announcement',
-                canActivate: [], children: [
-                    { path: '', loadChildren: () => import('app/modules/admin/g-admin/announcement/announcement.module').then(m => m.Module) },
-                ]
-            },
-            // 404 & Catch all
-            { path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.module').then(m => m.Error404Module) },
-            { path: '**', redirectTo: '404-not-found' }
-        ]
-    },
 
+            {
+                path: 'transaction',
+                canActivate: [],
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/administrator/transaction/page.module'
+                            ).then((m) => m.Module),
+                    },
+                ],
+            },
+
+            // 404 & Catch all
+            {
+                path: '404-not-found',
+                pathMatch: 'full',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/pages/error/error-404/error-404.module'
+                    ).then((m) => m.Error404Module),
+            },
+            { path: '**', redirectTo: '404-not-found' },
+        ],
+    },
 ];

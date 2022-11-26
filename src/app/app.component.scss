@@ -10,3 +10,18 @@
         background: #ffffff !important;
     }
 }
+
+::ng-deep table.dataTable td.dataTables_empty {
+    display: none;
+}
+
+::ng-deep .mat-calendar {
+    color: black;
+    background: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+::ng-deep div.dataTables_processing>div:last-child>div {
+    background: #ed1f24 !important;
+}
