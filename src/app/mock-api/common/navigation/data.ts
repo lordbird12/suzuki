@@ -25,11 +25,20 @@ export const defaultNavigation: FuseNavigationItem[] = [
             // },
 
             {
+                title: 'สไตล์',
+                type: 'basic',
+                icon: 'heroicons_outline:collection',
+                link: 'style/list'
+            },
+           
+
+            {
                 title: 'รถจักรยานยนต์',
                 type: 'basic',
                 icon: 'mat_solid:sports_motorsports',
                 link: 'motorcycle/list'
             },
+
 
 
         ],

@@ -172,7 +172,22 @@ export const appRoutes: Route[] = [
                             ).then((m) => m.Module),
                     },
                 ],
+            },        
+            
+            {
+                path: 'style',
+                canActivate: [],
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/administrator/style/page.module'
+                            ).then((m) => m.Module),
+                    },
+                ],
             },          
+
 
             // 404 & Catch all
             {
