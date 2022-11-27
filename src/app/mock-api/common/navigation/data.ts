@@ -32,6 +32,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 link: 'motorcycle/list'
             },
 
+            {
+                title: 'ความเร็ว',
+                type: 'basic',
+                icon: 'mat_solid:speed',
+                link: 'speed/list'
+            },
+
 
 
 

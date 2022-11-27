@@ -189,14 +189,14 @@ export const appRoutes: Route[] = [
             },
 
             {
-                path: 'test',
+                path: 'speed',
                 canActivate: [],
                 children: [
                     {
                         path: '',
                         loadChildren: () =>
                             import(
-                                'app/modules/admin/administrator/test/page.module'
+                                'app/modules/admin/administrator/speed/page.module'
                             ).then((m) => m.Module),
                     },
                 ],
