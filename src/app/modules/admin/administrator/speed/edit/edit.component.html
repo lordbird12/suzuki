@@ -6,7 +6,7 @@
             <!-- Title -->
             <div class="mt-2">
                 <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
-                    แก้ไขรถจักรยานยนต์
+                    แก้ไขสไตล์
                 </h2>
             </div>
 
@@ -19,38 +19,38 @@
             <div class="flex flex-col sm:flex-row p-8">
                 <div class="w-full">
                     <div class="flex flex-auto flex-wrap">
-
                         <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
                             <mat-form-field class="w-full">
                                 <mat-label class="font-bold">เลือกสไตล์</mat-label>
-                                <mat-select [formControlName]="'bank_of'">
+                                <mat-select [formControlName]="'style_id'">
                                     <mat-option [value]="''">
-                                        <span class="text-gray-400">เลือกสไตล์</span>
+                                        <span class="text-gray-400">'เลือกสไตล์'</span>
                                     </mat-option>
-                                    <!-- <mat-option *ngFor="let bank of bankData" [value]="bank.name">
-                                        {{bank.name}}
-                                    </mat-option> -->
+                                    <mat-option *ngFor="let item of StyleList" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
 
                         <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
                             <mat-form-field class="w-full">
-                                <mat-label class="font-bold">ชื่อรถจักรยานยนต์</mat-label>
-                                <input matInput [formControlName]="'name'" placeholder="ชื่อรถจักรยานยนต์">
+                                <mat-label class="font-bold">กำหนดความเร็ว</mat-label>
+                                <input matInput [formControlName]="'name'" placeholder="กำหนดความเร็ว">
                             </mat-form-field>
                         </div>
+                        <!-- <img [src]="itemData.image" style="width: 500px; height: auto;" > -->
 
-
+<!-- 
                         <div class="flex flex-col w-full lg:w-4/4 sm:pl-8">
                             <ngx-dropzone style="width: 100%; height: 300px;" (change)="onSelect($event)">
-                                <ngx-dropzone-label>เลือกรูป รถจักรยานยนต์ </ngx-dropzone-label>
+                                <ngx-dropzone-label>เลือกรูป สไตล์ </ngx-dropzone-label>
                                 <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" [file]="f"
                                     (removed)="onRemove(f)">
                                     <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                                 </ngx-dropzone-image-preview>
                             </ngx-dropzone>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
@@ -58,14 +58,14 @@
             <!-- button -->
             <div class="flex items-center justify-end w-full border-t px-8 py-4">
                 <div class="flex items-center justify-end">
-                    <a class="ml-4" mat-flat-button href="bank/list">
+                    <a class="ml-4" mat-flat-button href="speed/list">
                         <mat-icon svgIcon="heroicons_solid:x"></mat-icon>
                         ยกเลิก
                     </a>
-                    <!-- <button class="px-6 ml-3 mat-primary" mat-flat-button (click)="NewBank()">
+                    <button class="px-6 ml-3 mat-primary" mat-flat-button (click)="Edit()">
                         <mat-icon svgIcon="heroicons_solid:check"></mat-icon>
                         ยืนยัน
-                    </button> -->
+                    </button>
                 </div>
             </div>
         </form>

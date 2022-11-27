@@ -108,7 +108,7 @@ Z
     //  if (this._authenticated) {
     //     return throwError('User is already logged in.');
     // }
-    return this._httpClient.post(environment.API_URL + 'api/motor', data, this.httpOptionsFormdata).pipe(
+    return this._httpClient.post(environment.API_URL + 'api/speed', data, this.httpOptionsFormdata).pipe(
       switchMap((response: any) => {
         // Return a new observable with the response
         return of(response);
@@ -140,13 +140,15 @@ Z
   }
 
   //   * update branch
-  update(data: any, Id): Observable<any> {
-    return this._httpClient.put(environment.API_URL + 'api/member/' + Id, data, this.httpOptionsFormdata).pipe(
+  update(data: any): Observable<any> {
+
+    return this._httpClient.post(environment.API_URL + 'api/update_speed', data, this.httpOptionsFormdata).pipe(
       switchMap((response: any) => {
-        // Return a new observable with the response
+
         return of(response);
       })
     );
+  
   }
 
 
@@ -159,7 +161,7 @@ Z
   }
 
   getPage(dataTablesParameters: any): Observable<DataTablesResponse> {
-    return this._httpClient.post(environment.API_URL + 'api/motor_page', dataTablesParameters, this.httpOptionsFormdata).pipe(
+    return this._httpClient.post(environment.API_URL + 'api/speed_page', dataTablesParameters, this.httpOptionsFormdata).pipe(
       switchMap((response: any) => {
         return of(response.data);
       })

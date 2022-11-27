@@ -6,7 +6,7 @@
             <!-- Title -->
             <div class="mt-2">
                 <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
-                    รถจักรยานยนต์
+                    ความเร็ว
                 </h2>
             </div>
 
@@ -37,15 +37,15 @@
 
                         <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
                             <mat-form-field class="w-full">
-                                <mat-label class="font-bold">ชื่อรถจักรยานยนต์</mat-label>
-                                <input matInput [formControlName]="'name'" placeholder="ชื่อรถจักรยานยนต์">
+                                <mat-label class="font-bold">กำหนดความเร็ว</mat-label>
+                                <input matInput [formControlName]="'name'" placeholder="กำหนดความเร็ว">
                             </mat-form-field>
                         </div>
 
 
 
 
-                        <div class="flex flex-col w-full lg:w-4/4 sm:pl-8">
+                        <!-- <div class="flex flex-col w-full lg:w-4/4 sm:pl-8">
                             <ngx-dropzone style="width: 100%; height: 300px;" (change)="onSelect($event)">
                                 <ngx-dropzone-label>เลือกรูป รถจักรยานยนต์ </ngx-dropzone-label>
                                 <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" [file]="f"
@@ -53,7 +53,7 @@
                                     <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                                 </ngx-dropzone-image-preview>
                             </ngx-dropzone>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
@@ -61,7 +61,7 @@
             <!-- button -->
             <div class="flex items-center justify-end w-full border-t px-8 py-4">
                 <div class="flex items-center justify-end">
-                    <a class="ml-4" mat-flat-button href="style/list">
+                    <a class="ml-4" mat-flat-button href="speed/list">
                         <mat-icon svgIcon="heroicons_solid:x"></mat-icon>
                         ยกเลิก
                     </a>

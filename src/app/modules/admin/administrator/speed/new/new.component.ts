@@ -83,7 +83,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     ) {
         this.formData = this._formBuilder.group({
             name: ['', Validators.required],
-            image: '',
+            // image: '',
             style_id: '',
         });
     }
@@ -100,7 +100,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         this.formData = this._formBuilder.group({
 
             name: ['', Validators.required],
-            image: '',
+            // image: '',
             style_id: '',
         });
         this._Service.getStyle().subscribe((resp: any) => {
@@ -152,14 +152,10 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     New(): void {
         this.flashMessage = null;
         this.flashErrorMessage = null;
-        // Return if the form is invalid
-        // if (this.formData.invalid) {
-        //     return;
-        // }
-        // Open the confirmation dialog
+
         const confirmation = this._fuseConfirmationService.open({
-            title: 'เพิ่มรถจักรยานยนต์',
-            message: 'คุณต้องการเพิ่มรถจักรยานยนต์ใหม่ใช่หรือไม่ ',
+            title: 'เพิ่มความเร็ว cc.',
+            message: 'คุณต้องการเพิ่มความเร็ว cc. ใหม่ใช่หรือไม่ ',
             icon: {
                 show: false,
                 name: 'heroicons_outline:exclamation',
@@ -192,7 +188,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
                 // console.log(this.formData.value);
                 this._Service.new(formData).subscribe({
                     next: (resp: any) => {
-                        this._router.navigateByUrl('motorcycle/list').then(() => {});
+                        this._router.navigateByUrl('speed/list').then(() => {});
                     },
                     error: (err: any) => {
                         this._fuseConfirmationService.open({

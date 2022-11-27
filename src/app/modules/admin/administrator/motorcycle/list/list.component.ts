@@ -142,6 +142,7 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
             columns: [
                 { data: 'no' }, 
                 { data: 'style' },
+                { data: 'speed' },               
                 { data: 'name' },
                 { data: 'image' },
                 { data: 'created_at' },

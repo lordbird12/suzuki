@@ -149,7 +149,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
     }
-    Edit(): void {
+   Edit(): void {
         this.flashMessage = null;
         this.flashErrorMessage = null;
 
@@ -216,7 +216,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
                 });
             }
         });
-    }
+    } 
 
 
     showFlashMessage(type: 'success' | 'error'): void {

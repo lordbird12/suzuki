@@ -72,7 +72,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
 
     supplierId: string | null;
     pagination: BranchPagination;
-
+    public StyleList: any = [];
     /**
      * Constructor
      */
@@ -87,13 +87,9 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
         private _authService: AuthService
     ) {
         this.formData = this._formBuilder.group({
-            member_id: ['', Validators.required],
-            code: ['', Validators.required],
-            fname: '',
-            lname: '',
-            email: '',
-            status: '',
-            transections: this._formBuilder.array([]),
+            id: '',       
+            name: ['', Validators.required],
+            image: ''
         });
     }
 
@@ -105,19 +101,23 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
      * On init
      */
     async ngOnInit(): Promise<void> {
+
+        this._Service.getStyle().subscribe((resp: any) => {
+            this.StyleList = resp.data;
+
+            // Mark for check
+            this._changeDetectorRef.markForCheck();
+        });
         this.Id = this._activatedRoute.snapshot.paramMap.get('id');
 
         this._Service.getById(this.Id).subscribe((resp: any) => {
             this.itemData = resp.data;
             console.log(this.itemData);
             this.formData.patchValue({
-                member_id: this.itemData.member_id,
-                code: this.itemData.code,
-                fname: this.itemData.fname,
-                lname: this.itemData.lname,
-                email: this.itemData.email,
-                transections: this.itemData.transections,
-                status: '',
+                id: this.itemData.id,
+                name: this.itemData.name,
+                image: this.itemData.image,
+
             });
         });
     }
@@ -156,19 +156,13 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
     }
-    
-
-    updateBank(): void {
+   Edit(): void {
         this.flashMessage = null;
         this.flashErrorMessage = null;
-        // Return if the form is invalid
-        // if (this.formData.invalid) {
-        //     return;
-        // }
-        // Open the confirmation dialog
+
         const confirmation = this._fuseConfirmationService.open({
-            title: 'แก้ไขบัญชีธนาคาร',
-            message: 'คุณต้องการแก้ไขบัญชีธนาคารใช่หรือไม่ ',
+            title: 'แก้ไขสไตล์',
+            message: 'คุณต้องการแก้ไขสไตล์ใช่หรือไม่ ',
             icon: {
                 show: false,
                 name: 'heroicons_outline:exclamation',
@@ -192,19 +186,21 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
         confirmation.afterClosed().subscribe((result) => {
             // If the confirm button pressed...
             if (result === 'confirmed') {
-                console.log(this.formData.value);
-                // Disable the form
-                this.formData.disable();
-                this._Service.update(this.formData.value, this.Id).subscribe({
+                const formData = new FormData();
+                Object.entries(this.formData.value).forEach(
+                    ([key, value]: any[]) => {
+                        formData.append(key, value);
+                    }
+                );
+                this._Service.update(formData).subscribe({
                     next: (resp: any) => {
-                        this.showFlashMessage('success');
-                        this._router.navigateByUrl('bank/list').then(() => {});
+                        this._router.navigateByUrl('style/list').then(() => {});
                     },
                     error: (err: any) => {
-                        this.formData.enable();
                         this._fuseConfirmationService.open({
                             title: 'กรุณาระบุข้อมูล',
-                            message: err.error.message,
+                            message:
+                                'ไม่สามารถบันทึกข้อมูลได้กรุณาตรวจสอบใหม่อีกครั้ง',
                             icon: {
                                 show: true,
                                 name: 'heroicons_outline:exclamation',
@@ -223,35 +219,12 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
                             },
                             dismissible: true,
                         });
-                        console.log(err.error.message);
                     },
                 });
-
-                // Sign in
-                // this._Service.createUser(this.userForm.value)
-                //     .subscribe({
-                //         next: (res) => {
-                //             console.log(res);
-                //         },
-                //         error: (err: HttpErrorResponse) => {
-                //             this.userForm.enable();
-                //             this.flashMessage = 'error';
-
-                //             if (err.error.error['message'] === 'This attribute must be unique') {
-                //                 this.flashErrorMessage = 'Username is already';
-                //             } else {
-                //                 this.flashErrorMessage = err.error.error['message'];
-                //             }
-                //         },
-                //         complete: () => {
-                //             this._location.back();
-                //         },
-                //     }
-                //     );
             }
         });
-    }
-    
+    } 
+
 
     showFlashMessage(type: 'success' | 'error'): void {
         // Show the message

@@ -65,7 +65,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public StyleList: any = [];
 
-
+    public SpeedList: any = [];
 
     toppings: any = [];
     /**
@@ -85,6 +85,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
             name: ['', Validators.required],
             image: '',
             style_id: '',
+            speed_id: '',
         });
     }
 
@@ -102,6 +103,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
             name: ['', Validators.required],
             image: '',
             style_id: '',
+            speed_id: '',
         });
         this._Service.getStyle().subscribe((resp: any) => {
             this.StyleList = resp.data;
@@ -110,7 +112,12 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
             this._changeDetectorRef.markForCheck();
         });
 
+        this._Service.getSpeed().subscribe((resp: any) => {
+            this.SpeedList = resp.data;
 
+            // Mark for check
+            this._changeDetectorRef.markForCheck();
+        });
 
 
         this._changeDetectorRef.markForCheck();
@@ -152,11 +159,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     New(): void {
         this.flashMessage = null;
         this.flashErrorMessage = null;
-        // Return if the form is invalid
-        // if (this.formData.invalid) {
-        //     return;
-        // }
-        // Open the confirmation dialog
+   
         const confirmation = this._fuseConfirmationService.open({
             title: 'เพิ่มรถจักรยานยนต์',
             message: 'คุณต้องการเพิ่มรถจักรยานยนต์ใหม่ใช่หรือไม่ ',

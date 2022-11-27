@@ -143,7 +143,7 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
                 { data: 'no' }, 
                 { data: 'style' },
                 { data: 'name' },
-                { data: 'image' },
+                // { data: 'image' },
                 { data: 'created_at' },
                 { data: 'delete' },
                 { data: 'update' },                             
@@ -226,11 +226,11 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     edit(Id: string): void {
 
-        this._router.navigate(['motorcycle/edit/' + Id]);
+        this._router.navigate(['speed/edit/' + Id]);
     }
 
     new(): void {
-        this._router.navigate(['motorcycle/new']);
+        this._router.navigate(['speed/new']);
     }
 
     textStatus(status: string): string {
