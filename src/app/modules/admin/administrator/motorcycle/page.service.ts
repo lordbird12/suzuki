@@ -165,9 +165,11 @@ Z
     );
   }
   
-  getSpeed(): Observable<any[]> {
+  getSpeed(event:any): Observable<any[]> {
+      
+
     return this._httpClient
-        .get<any[]>(environment.API_URL + 'api/get_speed')
+        .get<any[]>(environment.API_URL + 'api/get_speed/' +event)
         .pipe(
             tap((meterial) => {
                 this._materials.next(meterial);

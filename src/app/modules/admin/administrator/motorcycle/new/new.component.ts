@@ -112,12 +112,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
             this._changeDetectorRef.markForCheck();
         });
 
-        this._Service.getSpeed().subscribe((resp: any) => {
-            this.SpeedList = resp.data;
 
-            // Mark for check
-            this._changeDetectorRef.markForCheck();
-        });
 
 
         this._changeDetectorRef.markForCheck();
@@ -138,6 +133,13 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         this.approve().push(this.NewUser());
 
         // alert(1)
+    }
+
+    onChange(event:any): void {
+        this._Service.getSpeed(event).subscribe((resp: any) => {
+            this.SpeedList = resp.data;
+            this._changeDetectorRef.markForCheck();
+        });
     }
 
     removeUser(i: number): void {

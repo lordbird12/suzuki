@@ -113,12 +113,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
             this._changeDetectorRef.markForCheck();
         });
 
-        this._Service.getSpeed().subscribe((resp: any) => {
-            this.SpeedList = resp.data;
 
-            // Mark for check
-            this._changeDetectorRef.markForCheck();
-        });
         this.Id = this._activatedRoute.snapshot.paramMap.get('id');
 
         this._Service.getById(this.Id).subscribe((resp: any) => {
@@ -127,11 +122,18 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
             this.formData.patchValue({
                 id: this.itemData.id,
                 name: this.itemData.name,
-                image: this.itemData.image,
+
                 style_id: this.itemData.style.id,
                 speed_id: this.itemData.speed.id,
 
             });
+            this._Service.getSpeed(this.itemData.style.id).subscribe((resp: any) => {
+                this.SpeedList = resp.data;
+                this._changeDetectorRef.markForCheck();
+            });
+
+
+
         });
     }
 
@@ -150,6 +152,13 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
         this.approve().push(this.NewUser());
 
         // alert(1)
+    }
+
+    onChange(event:any): void {
+        this._Service.getSpeed(event).subscribe((resp: any) => {
+            this.SpeedList = resp.data;
+            this._changeDetectorRef.markForCheck();
+        });
     }
 
     removeUser(i: number): void {
