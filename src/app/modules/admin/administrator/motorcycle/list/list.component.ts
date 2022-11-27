@@ -146,7 +146,7 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
                 { data: 'name' },
                 { data: 'image' },
                 { data: 'created_at' },
-                { data: 'delete' },
+                // { data: 'delete' },
                 { data: 'update' },                             
             ],
         };

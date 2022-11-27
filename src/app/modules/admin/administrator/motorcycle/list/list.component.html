@@ -44,7 +44,7 @@
                             <th>ชื่อ</th>
                             <th>รูปภาพ</th>
                             <th>วันที่สร้าง</th>
-                            <th>ลบ</th>                            
+                            <!-- <th>ลบ</th>                             -->
                             <th>แก้ไข</th>
                         </tr>
                     </thead>
@@ -57,11 +57,11 @@
                             <td><img [src]="item.image" style="width: 50px; height: auto;" ></td>
                             <td>{{ item.created_at }}</td>
                             
-                            <td style="width: 5%;">
+                            <!-- <td style="width: 5%;">
                                 <button mat-button (click)="edit(item.id)">
                                     <mat-icon svgIcon="mat_solid:delete"></mat-icon>
                                 </button>
-                            </td>                           
+                            </td>                            -->
                             <td style="width: 5%;">
                                 <button mat-button (click)="edit(item.id)">
                                     <mat-icon>edit</mat-icon>

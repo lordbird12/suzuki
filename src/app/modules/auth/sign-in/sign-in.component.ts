@@ -106,9 +106,9 @@ export class AuthSignInComponent implements OnInit {
                     // console.log('1')
                     let redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
 
-                    if (redirectURL === '/signed-in-redirect') {
-                        redirectURL = 'member/list';
-                    }
+//                    if (redirectURL === '/signed-in-redirect') {
+                        redirectURL = 'client/list';
+//
                     this._router.navigateByUrl(redirectURL);
                 },
                 error: (error: HttpErrorResponse) => {
