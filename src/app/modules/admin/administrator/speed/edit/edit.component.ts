@@ -87,9 +87,9 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
         private _authService: AuthService
     ) {
         this.formData = this._formBuilder.group({
-            id: '',       
+            id: '',
             name: ['', Validators.required],
-            image: ''
+            style_id: '',
         });
     }
 
@@ -116,9 +116,13 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
             this.formData.patchValue({
                 id: this.itemData.id,
                 name: this.itemData.name,
-                image: this.itemData.image,
+                style_id: this.itemData.style[0].id,
+
 
             });
+
+            this._changeDetectorRef.markForCheck();
+
         });
     }
 
@@ -184,7 +188,6 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
 
         // Subscribe to the confirmation dialog closed action
         confirmation.afterClosed().subscribe((result) => {
-            // If the confirm button pressed...
             if (result === 'confirmed') {
                 const formData = new FormData();
                 Object.entries(this.formData.value).forEach(
@@ -194,7 +197,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
                 );
                 this._Service.update(formData).subscribe({
                     next: (resp: any) => {
-                        this._router.navigateByUrl('style/list').then(() => {});
+                        this._router.navigateByUrl('speed/list').then(() => {});
                     },
                     error: (err: any) => {
                         this._fuseConfirmationService.open({

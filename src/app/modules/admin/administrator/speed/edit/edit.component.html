@@ -6,7 +6,7 @@
             <!-- Title -->
             <div class="mt-2">
                 <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
-                    แก้ไขสไตล์
+                    แก้ไขความเร็ว cc.
                 </h2>
             </div>
 
@@ -24,7 +24,7 @@
                                 <mat-label class="font-bold">เลือกสไตล์</mat-label>
                                 <mat-select [formControlName]="'style_id'">
                                     <mat-option [value]="''">
-                                        <span class="text-gray-400">'เลือกสไตล์'</span>
+                                        <span class="text-gray-400">เลือกสไตล์</span>
                                     </mat-option>
                                     <mat-option *ngFor="let item of StyleList" [value]="item.id">
                                         {{item.name}}

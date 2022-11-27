@@ -108,7 +108,7 @@ Z
     //  if (this._authenticated) {
     //     return throwError('User is already logged in.');
     // }
-    return this._httpClient.post(environment.API_URL + 'api/speed', data, this.httpOptionsFormdata).pipe(
+    return this._httpClient.post(environment.API_URL + 'api/speed/', data, this.httpOptionsFormdata).pipe(
       switchMap((response: any) => {
         // Return a new observable with the response
         return of(response);
@@ -136,7 +136,7 @@ Z
 
   //   * get branch by id
   getById(Id: string): Observable<any> {
-    return this._httpClient.get<DataBank>(environment.API_URL + 'api/member/' + Id)
+    return this._httpClient.get<DataBank>(environment.API_URL + 'api/speed/' + Id)
   }
 
   //   * update branch

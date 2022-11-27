@@ -20,19 +20,33 @@
                 <div class="w-full">
                     <div class="flex flex-auto flex-wrap">
 
-                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                        <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
                             <mat-form-field class="w-full">
                                 <mat-label class="font-bold">เลือกสไตล์</mat-label>
-                                <mat-select [formControlName]="'bank_of'">
+                                <mat-select [formControlName]="'style_id'">
                                     <mat-option [value]="''">
                                         <span class="text-gray-400">เลือกสไตล์</span>
                                     </mat-option>
-                                    <!-- <mat-option *ngFor="let bank of bankData" [value]="bank.name">
-                                        {{bank.name}}
-                                    </mat-option> -->
+                                    <mat-option *ngFor="let item of StyleList" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
+
+                        <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                            <mat-form-field class="w-full">
+                                <mat-label class="font-bold">เลือกความเร็ว cc.</mat-label>
+                                <mat-select [formControlName]="'speed_id'">
+                                    <mat-option [value]="''">
+                                        <span class="text-gray-400">เลือกความเร็ว cc.</span>
+                                    </mat-option>
+                                    <mat-option *ngFor="let item of SpeedList" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>  
 
                         <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
                             <mat-form-field class="w-full">
@@ -58,14 +72,14 @@
             <!-- button -->
             <div class="flex items-center justify-end w-full border-t px-8 py-4">
                 <div class="flex items-center justify-end">
-                    <a class="ml-4" mat-flat-button href="bank/list">
+                    <a class="ml-4" mat-flat-button href="motorcycle/list">
                         <mat-icon svgIcon="heroicons_solid:x"></mat-icon>
                         ยกเลิก
                     </a>
-                    <!-- <button class="px-6 ml-3 mat-primary" mat-flat-button (click)="NewBank()">
+                    <button class="px-6 ml-3 mat-primary" mat-flat-button (click)="Edit()">
                         <mat-icon svgIcon="heroicons_solid:check"></mat-icon>
                         ยืนยัน
-                    </button> -->
+                    </button>
                 </div>
             </div>
         </form>
