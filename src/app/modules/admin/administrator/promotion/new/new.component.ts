@@ -136,11 +136,6 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     New(): void {
         this.flashMessage = null;
         this.flashErrorMessage = null;
-        // Return if the form is invalid
-        // if (this.formData.invalid) {
-        //     return;
-        // }
-        // Open the confirmation dialog
         const confirmation = this._fuseConfirmationService.open({
             title: 'เพิ่มสไตล์ใหม่',
             message: 'คุณต้องการเพิ่มสไตล์ใหม่ใช่หรือไม่ ',
@@ -173,9 +168,15 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
                         formData.append(key, value);
                     }
                 );
+
+                for (var i = 0; i < this.files.length; i++) {
+                    formData.append('images[]', this.files[i]);
+                    }
+
+
                 this._Service.new(formData).subscribe({
                     next: (resp: any) => {
-                        this._router.navigateByUrl('style/list').then(() => {});
+                        this._router.navigateByUrl('promotion/list').then(() => {});
                     },
                     error: (err: any) => {
                         this._fuseConfirmationService.open({
@@ -238,25 +239,20 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     onSelect(event) {
-        console.log(event);
         this.files.push(...event.addedFiles);
-        // Trigger Image Preview
         setTimeout(() => {
             this._changeDetectorRef.detectChanges()
         }, 150)
         this.formData.patchValue({
-            image: this.files[0],
+            image: this.files,
         });
-        console.log(this.formData.value)
     }
 
     onRemove(event) {
-        console.log('1', event);
         this.files.splice(this.files.indexOf(event), 1);
         this.formData.patchValue({
-            image: '',
+            image: [],
         });
-        console.log(this.formData.value)
     }
 
 }
