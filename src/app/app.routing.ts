@@ -116,50 +116,22 @@ export const appRoutes: Route[] = [
                         (m) => m.HomeModule
                     ),
             },
-            //user
+
+
             {
-                path: 'user',
+                path: 'client',
                 canActivate: [],
                 children: [
                     {
                         path: '',
                         loadChildren: () =>
                             import(
-                                'app/modules/admin/administrator/user/user.module'
-                            ).then((m) => m.UserModule),
-                    },
-                ],
-            },
-            //user
-            {
-                path: 'member',
-                canActivate: [],
-                children: [
-                    {
-                        path: '',
-                        loadChildren: () =>
-                            import(
-                                'app/modules/admin/administrator/members/page.module'
+                                'app/modules/admin/administrator/client/page.module'
                             ).then((m) => m.Module),
                     },
                 ],
             },
-
-            {
-                path: 'transaction',
-                canActivate: [],
-                children: [
-                    {
-                        path: '',
-                        loadChildren: () =>
-                            import(
-                                'app/modules/admin/administrator/transaction/page.module'
-                            ).then((m) => m.Module),
-                    },
-                ],
-            },
-
-
+     
             {
                 path: 'motorcycle',
                 canActivate: [],
@@ -199,6 +171,21 @@ export const appRoutes: Route[] = [
                         loadChildren: () =>
                             import(
                                 'app/modules/admin/administrator/style/page.module'
+                            ).then((m) => m.Module),
+                    },
+                ],
+            },
+
+
+            {
+                path: 'promotion',
+                canActivate: [],
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/administrator/promotion/page.module'
                             ).then((m) => m.Module),
                     },
                 ],

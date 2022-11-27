@@ -11,10 +11,10 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:home',
         children: [
             {
-                title: 'สมาชิก',
+                title: 'ลูกค้า',
                 type: 'basic',
-                icon: 'heroicons_outline:users',
-                link: '/member/list',
+                icon: 'feather:smile',
+                link: '/client/list',
             },
 
             {
@@ -39,6 +39,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 link: 'motorcycle/list'
             },
 
+
+            {
+                title: 'โปรโมชั่น',
+                type: 'basic',
+                icon: 'feather:gift',
+                link: 'promotion/list'
+            },
 
 
 
