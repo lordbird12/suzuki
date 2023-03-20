@@ -176,6 +176,20 @@ export const appRoutes: Route[] = [
                 ],
             },
 
+            {
+                path: 'item',
+                canActivate: [],
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import(
+                                'app/modules/admin/administrator/item/page.module'
+                            ).then((m) => m.Module),
+                    },
+                ],
+            },
+
 
             {
                 path: 'promotion',

@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    API_URL: 'https://asha-dev.com/suzuki-api/public/',
+    API_URL: 'https://suzukisocietyth.tech/suzuki-api/public/',
 };

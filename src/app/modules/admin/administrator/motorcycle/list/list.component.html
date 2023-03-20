@@ -40,8 +40,10 @@
                         <tr>
                             <th>ลำดับ</th>
                             <th>สไตล์</th>
-                            <th>ความเร็ว cc.</th>                            
+                            <!-- <th>ความเร็ว cc.</th> -->
                             <th>ชื่อ</th>
+                            <th>ราคา</th>
+                            <th>โปรโมชั่น</th>
                             <th>รูปภาพ</th>
                             <th>วันที่สร้าง</th>
                             <!-- <th>ลบ</th>                             -->
@@ -52,11 +54,13 @@
                         <tr *ngFor="let item of dataRow; let i = index">
                             <td style="width: 5%;">{{ pages.begin + (i + 1) }}</td>
                             <td>{{ item.style.name }}</td>
-                            <td>{{ item.speed.name }}</td>                           
+                            <!-- <td>{{ item.speed.name }}</td> -->
                             <td>{{ item.name }}</td>
-                            <td><img [src]="item.image" style="width: 50px; height: auto;" ></td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.promotion }}</td>
+                            <td><img [src]="item.image" style="width: 50px; height: auto;"></td>
                             <td>{{ item.created_at }}</td>
-                            
+
                             <!-- <td style="width: 5%;">
                                 <button mat-button (click)="edit(item.id)">
                                     <mat-icon svgIcon="mat_solid:delete"></mat-icon>
@@ -71,7 +75,7 @@
                     </tbody>
                     <tbody *ngIf="dataRow?.length == 0">
                         <tr>
-                            <td colspan="9" class="no-data-available text-center">ไม่มีข้อมูล !</td>
+                            <td colspan="8" class="no-data-available text-center">ไม่มีข้อมูล !</td>
                         </tr>
                     </tbody>
                 </table>

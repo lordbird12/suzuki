@@ -31,9 +31,7 @@ export class Service {
   private _product: BehaviorSubject<BranchProduct | null> = new BehaviorSubject(null);
   private _products: BehaviorSubject<BranchProduct[] | null> = new BehaviorSubject(null);
   private _list_data: BehaviorSubject<any[] | null> = new BehaviorSubject(null);
-  private _materials: BehaviorSubject<any[] | null> = new BehaviorSubject(
-    null
-);
+
   /**
    * Constructor
    */
@@ -108,7 +106,7 @@ Z
     //  if (this._authenticated) {
     //     return throwError('User is already logged in.');
     // }
-    return this._httpClient.post(environment.API_URL + 'api/speed', data, this.httpOptionsFormdata).pipe(
+    return this._httpClient.post(environment.API_URL + 'api/item_stock', data, this.httpOptionsFormdata).pipe(
       switchMap((response: any) => {
         // Return a new observable with the response
         return of(response);
@@ -136,19 +134,18 @@ Z
 
   //   * get branch by id
   getById(Id: string): Observable<any> {
-    return this._httpClient.get<DataBank>(environment.API_URL + 'api/speed/' + Id)
+    return this._httpClient.get<DataBank>(environment.API_URL + 'api/item_stock/' + Id)
   }
 
   //   * update branch
   update(data: any): Observable<any> {
 
-    return this._httpClient.post(environment.API_URL + 'api/update_speed', data, this.httpOptionsFormdata).pipe(
+    return this._httpClient.post(environment.API_URL + 'api/update_item_stock', data, this.httpOptionsFormdata).pipe(
       switchMap((response: any) => {
 
         return of(response);
       })
     );
-  
   }
 
 
@@ -161,22 +158,14 @@ Z
   }
 
   getPage(dataTablesParameters: any): Observable<DataTablesResponse> {
-    return this._httpClient.post(environment.API_URL + 'api/speed_page', dataTablesParameters, this.httpOptionsFormdata).pipe(
+    return this._httpClient.post(environment.API_URL + 'api/item_stock_page', dataTablesParameters, this.httpOptionsFormdata).pipe(
       switchMap((response: any) => {
         return of(response.data);
       })
     );
   }
 
-  getStyle(): Observable<any[]> {
-    return this._httpClient
-        .get<any[]>(environment.API_URL + 'api/get_style')
-        .pipe(
-            tap((meterial) => {
-                this._materials.next(meterial);
-            })
-        );
-}
+
 
   uploadImg(img: FormData): Observable<any> {
     return this._httpClient.post(environment.API_URL + 'api/upload_images', img, this.httpOptionsFormdata).pipe(

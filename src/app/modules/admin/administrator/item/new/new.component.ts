@@ -20,7 +20,6 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {
     debounceTime,
-    lastValueFrom,
     map,
     merge,
     Observable,
@@ -40,18 +39,14 @@ import { Service } from '../page.service';
 // import { ImportOSMComponent } from '../card/import-osm/import-osm.component';
 
 @Component({
-    selector: 'edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
+    selector: 'new',
+    templateUrl: './new.component.html',
+    styleUrls: ['./new.component.scss'],
     animations: fuseAnimations,
 })
-export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
+export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(MatPaginator) private _paginator: MatPaginator;
     @ViewChild(MatSort) private _sort: MatSort;
-    public UserAppove: any = [];
-    itemData: any = [];
-    // branchId = 2;
-    Id: any;
     files: File[] = [];
 
     formData: FormGroup;
@@ -64,16 +59,12 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
     tagsEditMode: boolean = false;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     env_path = environment.API_URL;
-    public StyleList: any = [];
-
-    // me: any | null;
-    // get roleType(): string {
-    //     return 'marketing';
-    // }
-
     supplierId: string | null;
     pagination: BranchPagination;
+    public UserAppove: any = [];
 
+
+    toppings: any = [];
     /**
      * Constructor
      */
@@ -88,9 +79,8 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
         private _authService: AuthService
     ) {
         this.formData = this._formBuilder.group({
-            id: '',
             name: ['', Validators.required],
-            style_id: '',
+            qty: ['', Validators.required],
             image: '',
         });
     }
@@ -102,47 +92,15 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
     /**
      * On init
      */
-    async ngOnInit(): Promise<void> {
-        this._Service.getStyle().subscribe((resp: any) => {
-            this.StyleList = resp.data;
-
-            this.Id = this._activatedRoute.snapshot.paramMap.get('id');
-
-            this._Service.getById(this.Id).subscribe((resp: any) => {
-                this.itemData = resp.data;
-                this.formData.patchValue({
-                    id: this.itemData.id,
-                    name: this.itemData.name,
-                    style_id: 1,
-                });
-            });
-            // Mark for check
-            this._changeDetectorRef.markForCheck();
+    ngOnInit(): void {
+        this.formData = this._formBuilder.group({
+            name: ['', Validators.required],
+            qty: ['', Validators.required],
+            image: '',
         });
+
+        this._changeDetectorRef.markForCheck();
     }
-
-    approve(): FormArray {
-        return this.formData.get('approve') as FormArray;
-    }
-
-    NewUser(): FormGroup {
-        return this._formBuilder.group({
-            user_id: '',
-            remark: '',
-        });
-    }
-
-    addUser(): void {
-        this.approve().push(this.NewUser());
-
-        // alert(1)
-    }
-
-    removeUser(i: number): void {
-        this.approve().removeAt(i);
-    }
-
-    discard(): void {}
 
     /**
      * After view init
@@ -155,13 +113,18 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
     }
-    Edit(): void {
+
+    New(): void {
         this.flashMessage = null;
         this.flashErrorMessage = null;
-
+        // Return if the form is invalid
+        // if (this.formData.invalid) {
+        //     return;
+        // }
+        // Open the confirmation dialog
         const confirmation = this._fuseConfirmationService.open({
-            title: 'แก้ไขโปรโมชั่น',
-            message: 'คุณต้องการแก้ไขโปรโมชั่นใช่หรือไม่ ',
+            title: 'เพิ่มของรางวัลใหม่',
+            message: 'คุณต้องการเพิ่มของรางวัลใหม่ใช่หรือไม่ ',
             icon: {
                 show: false,
                 name: 'heroicons_outline:exclamation',
@@ -191,9 +154,9 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
                         formData.append(key, value);
                     }
                 );
-                this._Service.update(formData).subscribe({
+                this._Service.new(formData).subscribe({
                     next: (resp: any) => {
-                        this._router.navigateByUrl('promotion/list').then(() => {});
+                        this._router.navigateByUrl('item/list').then(() => {});
                     },
                     error: (err: any) => {
                         this._fuseConfirmationService.open({
@@ -223,21 +186,8 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         });
     }
-
-    showFlashMessage(type: 'success' | 'error'): void {
-        // Show the message
-        this.flashMessage = type;
-
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-
-        // Hide it after 3 seconds
-        setTimeout(() => {
-            this.flashMessage = null;
-
-            // Mark for check
-            this._changeDetectorRef.markForCheck();
-        }, 3000);
+    showFlashMessage(arg0: string) {
+        throw new Error('Method not implemented.');
     }
 
     onSelect(event) {
@@ -245,37 +195,21 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
         this.files.push(...event.addedFiles);
         // Trigger Image Preview
         setTimeout(() => {
-            this._changeDetectorRef.detectChanges();
-        }, 150);
+            this._changeDetectorRef.detectChanges()
+        }, 150)
         this.formData.patchValue({
             image: this.files[0],
         });
-        console.log(this.formData.value);
+        console.log(this.formData.value)
     }
 
-    CheckUserAppove(event): void {
-        console.log(event);
-        let formValue = this.formData.value.user_id;
-        if (event.checked === true) {
-            this.UserAppove.push(event.source.value);
-            this.formData.patchValue({
-                user_id: this.UserAppove,
-            });
-
-            // this.dataForm.get('componentData')['controls'][i].get('componentForm')['controls'][j].patchValue(formValue[j])
-        } else {
-            // this.UserAppove = this.UserAppove.filter((item) => item !== event.target.value)
-
-            this.UserAppove = this.UserAppove.filter(function (
-                value,
-                index,
-                arr
-            ) {
-                return value != event.checked;
-            });
-            this.formData.patchValue({
-                user_id: this.UserAppove,
-            });
-        }
+    onRemove(event) {
+        console.log('1', event);
+        this.files.splice(this.files.indexOf(event), 1);
+        this.formData.patchValue({
+            image: '',
+        });
+        console.log(this.formData.value)
     }
+
 }

@@ -62,7 +62,7 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     supplierId: string | null;
     pagination: BranchPagination;
     public UserAppove: any = [];
-
+    public StyleList: any = [];
 
     toppings: any = [];
     /**
@@ -94,7 +94,15 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnInit(): void {
         this.formData = this._formBuilder.group({
             name: ['', Validators.required],
+            style_id: '',
             image: '',
+        });
+
+        this._Service.getStyle().subscribe((resp: any) => {
+            this.StyleList = resp.data;
+
+            // Mark for check
+            this._changeDetectorRef.markForCheck();
         });
 
         this._changeDetectorRef.markForCheck();
@@ -137,8 +145,8 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         this.flashMessage = null;
         this.flashErrorMessage = null;
         const confirmation = this._fuseConfirmationService.open({
-            title: 'เพิ่มสไตล์ใหม่',
-            message: 'คุณต้องการเพิ่มสไตล์ใหม่ใช่หรือไม่ ',
+            title: 'เพิ่มโปรโมชั่นใหม่',
+            message: 'คุณต้องการเพิ่มโปรโมชั่นใหม่ใช่หรือไม่ ',
             icon: {
                 show: false,
                 name: 'heroicons_outline:exclamation',
@@ -171,12 +179,13 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
 
                 for (var i = 0; i < this.files.length; i++) {
                     formData.append('images[]', this.files[i]);
-                    }
-
+                }
 
                 this._Service.new(formData).subscribe({
                     next: (resp: any) => {
-                        this._router.navigateByUrl('promotion/list').then(() => {});
+                        this._router
+                            .navigateByUrl('promotion/list')
+                            .then(() => {});
                     },
                     error: (err: any) => {
                         this._fuseConfirmationService.open({
@@ -236,13 +245,11 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-
-
     onSelect(event) {
         this.files.push(...event.addedFiles);
         setTimeout(() => {
-            this._changeDetectorRef.detectChanges()
-        }, 150)
+            this._changeDetectorRef.detectChanges();
+        }, 150);
         this.formData.patchValue({
             image: this.files,
         });

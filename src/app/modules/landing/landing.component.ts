@@ -18,7 +18,7 @@ export class LandingComponent implements OnInit {
 
     ngOnInit(): void {
         let redirectURL = '/signed-in-redirect';
-        redirectURL = 'home/list';
+        redirectURL = 'client/list';
         this._router.navigateByUrl(redirectURL);
         console.log('a')
     }

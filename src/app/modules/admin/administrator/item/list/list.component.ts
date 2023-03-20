@@ -58,7 +58,7 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     displayedColumns: string[] = [
         'id',
         'name',
-        'status',
+        'image',
         'create_by',
         'created_at',
         'actions',
@@ -140,16 +140,14 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
                     });
             },
             columns: [
-                { data: 'no' }, 
-                { data: 'style' },
-                // { data: 'speed' },               
+                { data: 'no' },               
                 { data: 'name' },
-                { data: 'price' },
-                { data: 'promotion' },
+                { data: 'qty' },
                 { data: 'image' },
                 { data: 'created_at' },
                 // { data: 'delete' },
-                { data: 'update' },                             
+                { data: 'update' },               
+ 
             ],
         };
     }
@@ -228,12 +226,11 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     edit(Id: string): void {
-
-        this._router.navigate(['motorcycle/edit/' + Id]);
+        this._router.navigate(['item/edit/' + Id]);
     }
 
     new(): void {
-        this._router.navigate(['motorcycle/new']);
+        this._router.navigate(['item/new']);
     }
 
     textStatus(status: string): string {

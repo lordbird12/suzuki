@@ -108,7 +108,7 @@ export class Service {
     //  if (this._authenticated) {
     //     return throwError('User is already logged in.');
     // }
-    return this._httpClient.post(environment.API_URL + 'api/speed/', data, this.httpOptionsFormdata).pipe(
+    return this._httpClient.post(environment.API_URL + 'api/speed', data, this.httpOptionsFormdata).pipe(
       switchMap((response: any) => {
         // Return a new observable with the response
         return of(response);

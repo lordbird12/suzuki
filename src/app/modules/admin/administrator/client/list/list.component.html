@@ -12,7 +12,7 @@
         <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
             <!-- Add product button -->
-            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="new()">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="export()">
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                 <span class="ml-2 mr-1">Export</span>
             </button>
@@ -41,10 +41,12 @@
                             <th>ลำดับ</th>
                             <th>ชื่อ</th>
                             <th>เบอร์โทร</th>
-                            <th>สไตล์</th>
-                            <th>ความเร็ว cc.</th>                           
+                            <!-- <th>สไตล์</th>
+                            <th>ความเร็ว cc.</th> -->
                             <th>ชื่อรถ</th>
-                            <th>วันที่สร้าง</th>                            
+                            <th>ช่วงเวลาที่ซื้อ</th>
+                            <th>ของรางวัล</th>
+                            <th>วันที่สร้าง</th>
 
                         </tr>
                     </thead>
@@ -52,13 +54,25 @@
                         <tr *ngFor="let item of dataRow; let i = index">
                             <td style="width: 5%;">{{ pages.begin + (i + 1) }}</td>
                             <td>{{ item.fullname }}</td>
-                            <td>{{ item.phone}}</td>                            
-                            <td>{{ item.style.name }}</td>  
-                            <td>{{ item.speed.name }}</td>                                                    
-                            <td>{{ item.motor.name }}</td>
+                            <td>{{ item.phone}}</td>
+                            <td>
+                                <p *ngIf="item.motor">{{ item.motor.name }}</p>
+                            </td>
+                            <!-- <td>
+                                <p *ngIf="item.speed">{{ item.speed.name }}</p>
+                            </td>
+                            <td>
+                                <p *ngIf="item.motor">{{ item.motor.name }}</p>
+                            </td> -->
+                            <td>
+                                <p *ngIf="item.time">{{ item.time }}</p>
+                            </td>
+                            <td>
+                                <p *ngIf="item.item_id">{{ item.item.name }}</p>
+                            </td>
                             <td>{{ item.created_at }}</td>
 
- 
+
                         </tr>
                     </tbody>
                     <tbody *ngIf="dataRow?.length == 0">

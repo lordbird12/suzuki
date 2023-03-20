@@ -229,9 +229,9 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
         this._router.navigate(['speed/edit/' + Id]);
     }
 
-    new(): void {
-        this._router.navigate(['speed/new']);
-    }
+    // export(): void {
+    //     this._router.navigate(['speed/new']);
+    // }
 
     textStatus(status: string): string {
         return startCase(status);
@@ -253,6 +253,6 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     export(): void {
-        window.open(environment.API_URL + 'api/export_member');
+        window.open(environment.API_URL + 'api/exportExcel');
     }
 }

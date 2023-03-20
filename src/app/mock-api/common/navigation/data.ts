@@ -39,11 +39,18 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 link: 'motorcycle/list'
             },
 
+            {
+                title: 'ของรางวัล',
+                type: 'basic',
+                icon: 'feather:gift',
+                link: 'item/list'
+            },
+
 
             {
                 title: 'โปรโมชั่น',
                 type: 'basic',
-                icon: 'feather:gift',
+                icon: 'feather:package',
                 link: 'promotion/list'
             },
 

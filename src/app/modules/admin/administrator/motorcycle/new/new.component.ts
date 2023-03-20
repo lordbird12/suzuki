@@ -86,6 +86,8 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
             image: '',
             style_id: '',
             speed_id: '',
+            price: '',
+            promotion: '',
         });
     }
 
@@ -104,6 +106,8 @@ export class NewComponent implements OnInit, AfterViewInit, OnDestroy {
             image: '',
             style_id: '',
             speed_id: '',
+            price: '',
+            promotion: '',
         });
         this._Service.getStyle().subscribe((resp: any) => {
             this.StyleList = resp.data;

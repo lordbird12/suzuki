@@ -46,7 +46,7 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                        </div>                      
+                        </div>
 
 
                         <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
@@ -56,14 +56,25 @@
                             </mat-form-field>
                         </div>
 
+                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                            <mat-form-field class="w-full">
+                                <mat-label class="font-bold">ราคารถจักรยานยนต์</mat-label>
+                                <input matInput [formControlName]="'price'" placeholder="ราคารถจักรยานยนต์">
+                            </mat-form-field>
+                        </div>
 
+                        <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                            <mat-form-field class="w-full">
+                                <mat-label class="font-bold">โปรโมชั่น</mat-label>
+                                <input matInput [formControlName]="'promotion'" placeholder="โปรโมชั่น">
+                            </mat-form-field>
+                        </div>
 
 
                         <div class="flex flex-col w-full lg:w-4/4 sm:pl-8">
                             <ngx-dropzone style="width: 100%; height: 300px;" (change)="onSelect($event)">
                                 <ngx-dropzone-label>เลือกรูป รถจักรยานยนต์ </ngx-dropzone-label>
-                                <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" [file]="f"
-                                    (removed)="onRemove(f)">
+                                <ngx-dropzone-image-preview *ngFor="let f of files" [removable]="true" [file]="f" (removed)="onRemove(f)">
                                     <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                                 </ngx-dropzone-image-preview>
                             </ngx-dropzone>

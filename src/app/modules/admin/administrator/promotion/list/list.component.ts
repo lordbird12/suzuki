@@ -39,6 +39,7 @@ import { NewComponent } from '../new/new.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { DataTableDirective } from 'angular-datatables';
 import { ImportComponent } from '../card/import/import.component';
+import { PictureComponent } from '../picture/picture.component';
 @Component({
     selector: 'list',
     templateUrl: './list.component.html',
@@ -140,8 +141,12 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
                     });
             },
             columns: [
-                { data: 'no' },               
-                { data: 'image' }, 
+                { data: 'no' },
+                { data: 'style' },
+                { data: 'image' },
+                { data: 'created_at' },
+                // { data: 'delete' },
+                { data: 'update' },
             ],
         };
     }
@@ -220,7 +225,7 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     edit(Id: string): void {
-        this._router.navigate(['style/edit/' + Id]);
+        this._router.navigate(['promotion/edit/' + Id]);
     }
 
     new(): void {
@@ -248,5 +253,20 @@ export class ListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     export(): void {
         window.open(environment.API_URL + 'api/export_member');
+    }
+
+    showPicture(imgObject: any): void {
+        this._matDialog
+            .open(PictureComponent, {
+                autoFocus: false,
+                data: {
+                    imgSelected: imgObject,
+                },
+            })
+            .afterClosed()
+            .subscribe(() => {
+                // Go up twice because card routes are setup like this; "card/CARD_ID"
+                // this._router.navigate(['./../..'], {relativeTo: this._activatedRoute});
+            });
     }
 }
