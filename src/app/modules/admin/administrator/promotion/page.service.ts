@@ -185,7 +185,7 @@ export class Service {
     //   * get branch by id
     getById(Id: string): Observable<any> {
         return this._httpClient.get<DataBank>(
-            environment.API_URL + 'api/style/' + Id
+            environment.API_URL + 'api/promotion/' + Id
         );
     }
 
